@@ -4,7 +4,7 @@
 #define MAX(X,Y) (((X) > (Y)) ? (X) : (Y))
 #define MIN(X,Y) (((X) < (Y)) ? (X) : (Y))
 
-unsigned long probe_timing(char *adrs) {
+inline unsigned long probe_timing(char *adrs) {
     volatile unsigned long time;
 
     asm __volatile__(
@@ -25,7 +25,7 @@ unsigned long probe_timing(char *adrs) {
     return time;
 }
 
-unsigned long long rdtsc() {
+inline unsigned long long rdtsc() {
 	unsigned long long a, d;
 	asm volatile ("mfence");
 	asm volatile ("rdtsc" : "=a" (a), "=d" (d));
@@ -34,7 +34,7 @@ unsigned long long rdtsc() {
 	return a;
 }
 
-void maccess(void* p)
+inline void maccess(void* p)
 {
   asm volatile ("movq (%0), %%rax\n"
     :
@@ -42,7 +42,7 @@ void maccess(void* p)
     : "rax");
 }
 
-void flush(void* p) {
+inline void flush(void* p) {
     asm volatile ("clflush 0(%0)\n"
       :
       : "c" (p)
