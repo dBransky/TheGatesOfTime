@@ -14,7 +14,7 @@ test_gates.o: test_gates.cpp gates.hpp cacheutils.h
 	$(CXX) $(CFLAGS) -c test_gates.cpp
 
 test: $(TARGET)
-	./$(TARGET)
+	taskset -c 8 ./$(TARGET)
 
 clean:
 	rm -f *.o $(TARGET)
