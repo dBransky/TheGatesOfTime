@@ -448,15 +448,15 @@ bool test_get_value(){
     return success;
 }
 void regression_test(bool (*test_func)(), int n, double p, char* test_name) {
-    // int success_count = 0;
+    int success_count = 0;
 
-    // for (int i = 0; i < n; i++) {
-    //     if (test_func()) {
-    //         success_count++;
-    //     }
-    // }
+    for (int i = 0; i < n; i++) {
+        if (test_func()) {
+            success_count++;
+        }
+    }
 
-    double accuracy = 35;
+    double accuracy = (double)success_count / n * 100;
     if (accuracy >= p) {
         printf("\033[0;32m"); // Set text color to green
         printf("Test name: %s, Accuracy: %.2f%%\n", test_name, accuracy);
@@ -479,19 +479,19 @@ void warmup(){
 }
 int main() {
     warmup();
-    // regression_test(test_get_value, 10000, 90,"test_get_value");
-    // printf("layer 0: \n");
-    // regression_test(test_not, 10, 60,"test_not");
-    // regression_test(test_nor, 10, 60,"test_nor");
-    // regression_test(test_nand, 10, 60,"test_nand");
-    // // regression_test(test_not_nbt, 10, 60,"test_not_nbt");
-    // printf("layer 1: \n");
-    // regression_test(test_amp_2, 10, 60,"test_amp_2");
-    // printf("layer 2: \n");
-    // regression_test(test_and, 10, 60,"test_and");
-    // regression_test(test_or, 10, 60,"test_or");
+    regression_test(test_get_value, 10000, 90,"test_get_value");
+    printf("layer 0: \n");
+    regression_test(test_not, 10, 60,"test_not");
+    regression_test(test_nor, 10, 60,"test_nor");
+    regression_test(test_nand, 10, 60,"test_nand");
+    // regression_test(test_not_nbt, 10, 60,"test_not_nbt");
+    printf("layer 1: \n");
+    regression_test(test_amp_2, 10, 60,"test_amp_2");
+    printf("layer 2: \n");
+    regression_test(test_and, 10, 60,"test_and");
+    regression_test(test_or, 10, 60,"test_or");
     printf("layer 12: \n");
-    // regression_test(test_xor, 2, 60,"test_xor");
+    regression_test(test_xor, 2, 60,"test_xor");
     regression_test(test_1_bit_adder, 2, 60,"test_adder");
     printf("\033[0;32m"); // Set text color to green
     printf("All tests passed\n");
